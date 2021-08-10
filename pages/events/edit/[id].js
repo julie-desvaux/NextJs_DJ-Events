@@ -8,10 +8,10 @@ import moment from "moment";
 
 import { API_URL } from "@/config/index";
 import Layout from "@/components/Layout";
+import Modal from "@/components/Modal";
 
 import styles from "@/styles/Form.module.css";
 import "react-toastify/dist/ReactToastify.css";
-import { div } from "prelude-ls";
 
 export default function EditEventPage({ evt }) {
 	const [values, setValues] = useState({
@@ -24,6 +24,7 @@ export default function EditEventPage({ evt }) {
 		description: evt.description,
 	});
 	const [imagePreview, setImagePreview] = useState(evt.image ? evt.image.formats.thumbnail.url : null);
+	const [showModal, setShowModal] = useState(false);
 	const router = useRouter();
 
 	const handleSubmit = async (e) => {
@@ -124,10 +125,13 @@ export default function EditEventPage({ evt }) {
 				</div>
 			)}
 			<div>
-				<button className="btn-secondary">
+				<button className="btn-secondary" onClick={() => setShowModal(true)}>
 					<FaImage /> Set Image
 				</button>
 			</div>
+			<Modal show={showModal} onClose={() => setShowModal(false)}>
+				IMAGE UPLOAD
+			</Modal>
 		</Layout>
 	);
 }
