@@ -3,17 +3,20 @@ import Link from "next/link";
 import { FaUser } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 
+import AuthContext from "@/context/AuthContext";
 import Layout from "@/components/Layout";
 
 import styles from "@/styles/AuthForm.module.css";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function loginPage() {
+	const { login, error } = useContext(AuthContext);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		login({ email, password });
 	};
 
 	return (
