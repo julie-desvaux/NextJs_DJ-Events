@@ -6,8 +6,13 @@ import { NEXT_URL } from "@/config/index";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+	const router = useRouter();
 	const [user, setUser] = useState();
 	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		checkUserLoggedIn();
+	}, []);
 
 	// Register user
 	const register = async (user) => {
@@ -32,6 +37,7 @@ export const AuthProvider = ({ children }) => {
 
 		if (res.ok) {
 			setUser(data.user);
+			router.push("/account/dashboard");
 		} else {
 			setError(data.message);
 			setError(null);
@@ -45,7 +51,14 @@ export const AuthProvider = ({ children }) => {
 
 	// Check if user is logged in
 	const checkUserLoggedIn = async (user) => {
-		console.log("Check");
+		const res = await fetch(`${NEXT_URL}/api/user`);
+		const data = await res.json();
+
+		if (res.ok) {
+			setUser(data.user);
+		} else {
+			setUser(null);
+		}
 	};
 
 	return <AuthContext.Provider value={{ user, error, register, login, logout }}>{children}</AuthContext.Provider>;
