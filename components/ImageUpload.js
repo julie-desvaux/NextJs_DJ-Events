@@ -22,9 +22,9 @@ export default function ImageUpload({ evtId, imageUploaded, token }) {
 
 		const res = await fetch(`${API_URL}/upload`, {
 			method: "POST",
-			// headers: {
-			// 	Authorization: `Bearer ${token}`,
-			// },
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
 			body: formData,
 		});
 
