@@ -7,7 +7,7 @@ import DashboardEvent from "@/components/DashboardEvent";
 
 import styles from "@/styles/Dashboard.module.css";
 
-export default function dashboardPage({ events, token }) {
+export default function DashboardPage({ events, token }) {
 	const [evts, setEvts] = useState(events);
 
 	const deleteEvent = async (id) => {

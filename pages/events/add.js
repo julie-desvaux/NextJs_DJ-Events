@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
-import { parseCookies } from "../../helpers/index";
+import { parseCookies } from "@/helpers/index";
 
 import { API_URL } from "@/config/index";
 import Layout from "@/components/Layout";

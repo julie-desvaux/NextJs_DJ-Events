@@ -9,7 +9,7 @@ import Layout from "@/components/Layout";
 import styles from "@/styles/AuthForm.module.css";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function registerPage() {
+export default function RegisterPage() {
 	const { register, error } = useContext(AuthContext);
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");

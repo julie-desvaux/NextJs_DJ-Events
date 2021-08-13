@@ -7,10 +7,10 @@ import { ToastContainer, toast } from "react-toastify";
 import moment from "moment";
 
 import { API_URL } from "@/config/index";
-import { parseCookies } from "../../../helpers/index";
+import { parseCookies } from "@/helpers/index";
 import Layout from "@/components/Layout";
 import Modal from "@/components/Modal";
-import ImageUpload from "../../../components/ImageUpload";
+import ImageUpload from "@/components/ImageUpload";
 
 import styles from "@/styles/Form.module.css";
 import "react-toastify/dist/ReactToastify.css";
