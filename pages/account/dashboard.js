@@ -1,13 +1,32 @@
-import { API_URL } from "@/config/index";
+import { useState } from "react";
+
+import { API_URL } from "../../config/index";
 import { parseCookies } from "@/helpers/index";
 import Layout from "@/components/Layout";
 import DashboardEvent from "@/components/DashboardEvent";
 
 import styles from "@/styles/Dashboard.module.css";
 
-export default function dashboardPage({ events }) {
-	const deleteEvent = (id) => {
-		console.log(id);
+export default function dashboardPage({ events, token }) {
+	const [evts, setEvts] = useState(events);
+
+	const deleteEvent = async (id) => {
+		if (confirm("Are you sure ?")) {
+			const res = await fetch(`${API_URL}/events/${id}`, {
+				method: "DELETE",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+
+			const data = await res.json();
+			if (!res.ok) {
+				toast.error(data.message);
+			} else {
+				const newEvts = evts.filter((evt) => evt.id !== id);
+				setEvts(newEvts);
+			}
+		}
 	};
 
 	return (
@@ -16,7 +35,7 @@ export default function dashboardPage({ events }) {
 				<h1>Dashboard</h1>
 				<h3>My Events</h3>
 
-				{events.map((evt) => (
+				{evts.map((evt) => (
 					<DashboardEvent key={evt.id} evt={evt} handleDelete={deleteEvent} />
 				))}
 			</div>
@@ -39,6 +58,7 @@ export async function getServerSideProps({ req }) {
 	return {
 		props: {
 			events,
+			token,
 		},
 	};
 }

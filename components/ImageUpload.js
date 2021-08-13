@@ -4,7 +4,7 @@ import { API_URL } from "@/config/index";
 
 import styles from "@/styles/Form.module.css";
 
-export default function ImageUpload({ evtId, imageUploaded }) {
+export default function ImageUpload({ evtId, imageUploaded, token }) {
 	const [image, setImage] = useState(null);
 
 	const handleFileChange = (e) => {
@@ -12,7 +12,8 @@ export default function ImageUpload({ evtId, imageUploaded }) {
 	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault;
+		e.preventDefault();
+		console.log("handleSubmit");
 		const formData = new FormData();
 		formData.append("files", image);
 		formData.append("ref", "events");
@@ -21,6 +22,9 @@ export default function ImageUpload({ evtId, imageUploaded }) {
 
 		const res = await fetch(`${API_URL}/upload`, {
 			method: "POST",
+			// headers: {
+			// 	Authorization: `Bearer ${token}`,
+			// },
 			body: formData,
 		});
 
